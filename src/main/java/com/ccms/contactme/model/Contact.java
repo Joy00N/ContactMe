@@ -6,8 +6,6 @@ import lombok.Setter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.Date;
-
 @Document
 @Getter
 @Setter
@@ -18,6 +16,6 @@ public class Contact {
     private String id;
 
     private String name;
-    private Date expirationDate;
+    private String expirationDate;
 
 }
