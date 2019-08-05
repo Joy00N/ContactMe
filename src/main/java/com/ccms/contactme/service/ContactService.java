@@ -11,4 +11,6 @@ public interface ContactService {
     List<Contact> findAll();
 
     Optional<Contact> findById(String id);
+
+    Contact save(Contact contact);
 }

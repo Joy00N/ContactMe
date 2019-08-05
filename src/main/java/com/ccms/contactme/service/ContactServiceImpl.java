@@ -23,4 +23,11 @@ public class ContactServiceImpl implements ContactService {
     public Optional<Contact> findById(String id) {
         return contactRepository.findById(id);
     }
+
+    @Override
+    public Contact save(Contact contact) {
+        return contactRepository.insert(contact);
+    }
+
+
 }

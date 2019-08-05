@@ -19,13 +19,17 @@ public class ContactController {
     ContactService contactService;
 
     @RequestMapping(value = "/contacts", method = RequestMethod.GET)
-    public List<Contact> getAllContacts(){
+    public List<Contact> getAllContacts() {
         return contactService.findAll();
     }
 
     @RequestMapping(value = "contact/{id}", method = RequestMethod.GET)
-    public Optional<Contact> getContactById(@PathVariable("id") String id){
+    public Optional<Contact> getContactById(@PathVariable("id") String id) {
         return contactService.findById(id);
+    }
 
+    @RequestMapping(value = "/contacts", method = RequestMethod.POST)
+    public Contact addNewContact(@RequestBody Contact contact){
+        return contactService.save(contact);
     }
 }
