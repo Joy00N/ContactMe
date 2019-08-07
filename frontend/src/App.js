@@ -23,6 +23,26 @@ class App extends Component {
             ).catch(e => console.log(e))
     }
 
+    handleClick(e) {
+        e.preventDefault();
+        let newContact = {name: this.state.name, expirationDate: this.state.expirationDate};
+        this.props.createContact(newContact);
+    }
+
+    createContact(contact) {
+        fetch('http://localhost:8080/contact/contacts',
+            {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(contact)
+            })
+            .then(
+                res => null
+            ).catch(e => console.log(e))
+    }
+
     render() {
         return (
             <div>
@@ -31,7 +51,6 @@ class App extends Component {
                         <InputForm createContact={this.createContact}/>
                     </Col>
                 </Row>
-
                 <Contacts contacts={this.state.contacts}/>
             </div>
         );
