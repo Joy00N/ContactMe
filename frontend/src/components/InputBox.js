@@ -6,13 +6,9 @@ import {Input, Button} from 'antd';
 // }
 
 const InputBox = (props) => {
-
-
-
     return (
         <div>
             <Input onChange={props.handleChange}/>
-            <Button type="primary">Contact Me</Button>
         </div>
     )
 };
