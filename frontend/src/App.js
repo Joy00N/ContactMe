@@ -1,29 +1,13 @@
 import React, {Component} from 'react';
 import Contacts from './components/Contacts'
 import './App.css';
-import {Row, Col, Button} from 'antd';
-import InputBox from "./components/InputBox";
-import axios from 'axios';
-import {catchClause} from "@babel/types";
+import {Row, Col} from 'antd';
+import InputForm from "./components/InputForm";
 
 class App extends Component {
     state = {
         contacts: [],
-        name: '',
-        expirationDate: '',
     };
-
-    handleChange(v) {
-        this.setState({
-            input: v
-        });
-    }
-
-    handleClick(e) {
-        e.preventDefault();
-        let newContact = {name: this.state.name, expirationDate: this.state.expirationDate};
-        this.props.createContact(newContact);
-    }
 
     createContact(contact) {
         fetch('http://localhost:8080/contact/contacts',
@@ -44,12 +28,10 @@ class App extends Component {
             <div>
                 <Row>
                     <Col span={6}>
-                        <InputBox onChange={this.handleChange}/>
+                        <InputForm createContact={this.createContact}/>
                     </Col>
                 </Row>
-                <Row>
-                    <Button type="primary" onClick={this.handleClick}>Contact Me</Button>
-                </Row>
+
                 <Contacts contacts={this.state.contacts}/>
             </div>
         );
