@@ -7,6 +7,7 @@ To run the application:
     `git clone https://github.com/Joy00N/ContactMe.git`
 2. From the frontend directory, install
     `cd frontend`
+    
     `npm install`
 3. run npm
     `npm start`
