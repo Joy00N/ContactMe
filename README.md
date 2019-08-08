@@ -12,8 +12,11 @@ To run the application:
     
     `npm install`
 3. run npm
+
     `npm start`
-4. open a browser `http://localhost:3000/`
+4. open a browser 
+
+`http://localhost:3000/`
 
 5. To run the backend server, run 'ContactmeApplication.java' 
 
