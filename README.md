@@ -18,6 +18,6 @@ To run the application:
 
 `http://localhost:3000/`
 
-5. To run the backend server, run 'ContactmeApplication.java' 
+5. Install mongodb, and from the terminal run 'mongod' to start the db locally
 
-6. Install mongodb, and from the terminal run 'mongod' to start the db locally
+6. Run the backend server, 'ContactmeApplication.java' 
