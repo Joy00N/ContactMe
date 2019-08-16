@@ -2,21 +2,23 @@ package com.ccms.contactme.controller;
 
 import com.ccms.contactme.model.Contact;
 import com.ccms.contactme.service.ContactService;
+import com.ccms.contactme.service.Producer;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
 
-@CrossOrigin(origins = "http://localhost:3000")
+//@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/contact")
 public class ContactController {
 
     @Autowired
-    ContactService contactService;
+    private ContactService contactService;
+
+    @Autowired
+    private Producer producer;
 
     @RequestMapping(value = "/contacts", method = RequestMethod.GET)
     public List<Contact> getAllContacts() {
@@ -32,4 +34,10 @@ public class ContactController {
     public Contact addNewContact(@RequestBody Contact contact){
         return contactService.save(contact);
     }
+
+    @PostMapping(value = "/publish")
+    public void sendMessageToKafkaTopic(@RequestParam("message")String message){
+        this.producer.sendMessage(message);
+    }
+
 }
