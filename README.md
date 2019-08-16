@@ -20,3 +20,4 @@ To run the application:
 
 5. To run the backend server, run 'ContactmeApplication.java' 
 
+6. Install mongodb, and from the terminal run 'mongod' to start the db locally
