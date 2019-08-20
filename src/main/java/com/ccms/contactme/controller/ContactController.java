@@ -2,7 +2,6 @@ package com.ccms.contactme.controller;
 
 import com.ccms.contactme.model.Contact;
 import com.ccms.contactme.service.ContactService;
-import com.ccms.contactme.service.Producer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,9 +16,6 @@ public class ContactController {
     @Autowired
     private ContactService contactService;
 
-    @Autowired
-    private Producer producer;
-
     @RequestMapping(value = "/contacts", method = RequestMethod.GET)
     public List<Contact> getAllContacts() {
         return contactService.findAll();
@@ -31,13 +27,8 @@ public class ContactController {
     }
 
     @RequestMapping(value = "/contacts", method = RequestMethod.POST)
-    public Contact addNewContact(@RequestBody Contact contact){
+    public Contact addNewContact(@RequestBody Contact contact) {
         return contactService.save(contact);
-    }
-
-    @PostMapping(value = "/publish")
-    public void sendMessageToKafkaTopic(@RequestParam("message")String message){
-        this.producer.sendMessage(message);
     }
 
 }
