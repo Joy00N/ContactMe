@@ -13,6 +13,7 @@ import java.util.Optional;
 @RequestMapping("/contact")
 public class ContactController {
 
+    public String abc;
     @Autowired
     private ContactService contactService;
 
