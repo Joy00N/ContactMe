@@ -31,6 +31,7 @@ class InputForm extends React.Component {
                 User Name: <Input name="name" onChange={this.handleChange}/>
                 Expiration Date: <Input name="expirationDate" onChange={this.handleChange}/>
                 <Button type="primary" onClick={this.handleClick}>Contact Me</Button>
+                <h2>welcome</h2>
             </div>
         )
     }
