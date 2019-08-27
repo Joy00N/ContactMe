@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import Contacts from './components/Contacts'
+import Users from './components/Users'
 import './App.css';
 import {Row, Col} from 'antd';
 import InputForm from "./components/InputForm";
@@ -7,6 +8,7 @@ import InputForm from "./components/InputForm";
 class App extends Component {
     state = {
         contacts: [],
+        users: [],
     };
 
     createContact(contact) {
@@ -51,19 +53,32 @@ class App extends Component {
                         <InputForm createContact={this.createContact}/>
                     </Col>
                 </Row>
-                <Contacts contacts={this.state.contacts}/>
+                <Row>
+                    <Contacts contacts={this.state.contacts}/>
+                </Row>
+                <Row>
+                    <Users users={this.state.users}/>
+                </Row>
             </div>
         );
     }
 
     componentDidMount() {
         // axios.get('http://localhost:8080/contact/contacts')
-        fetch('http://localhost:8080/contact/contacts')
-            .then(res => res.json())
-            .then((data) => {
-                this.setState({contacts: data})
+        Promise.all([fetch('http://localhost:8080/contact/contacts'), fetch('http://localhost:8080/user/users')])
+            .then(([res1, res2]) => {
+                return Promise.all([res1.json(), res2.json()])
             })
-            .catch(console.log)
+            .then(([res1, res2]) => {
+                this.setState({contacts: res1});
+                this.setState({users: res2});
+            })
+        // fetch('http://localhost:8080/contact/contacts')
+        //     .then(res => res.json())
+        //     .then((data) => {
+        //         this.setState({contacts: data})
+        //     })
+        //     .catch(console.log)
     }
 
 }
