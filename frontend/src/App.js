@@ -2,14 +2,21 @@ import React, {Component} from 'react';
 import Contacts from './components/Contacts'
 import Users from './components/Users'
 import './App.css';
-import {Row, Col} from 'antd';
+import {Row, Col, Radio} from 'antd';
 import InputForm from "./components/InputForm";
 
 class App extends Component {
-    state = {
-        contacts: [],
-        users: [],
-    };
+    constructor(props) {
+        super(props);
+        this.state = {
+            contacts: [],
+            users: [],
+            contactType: 1,
+        };
+
+        this.onChange = this.onChange.bind(this);
+    }
+
 
     createContact(contact) {
         fetch('http://localhost:8080/contact/contacts',
@@ -29,6 +36,12 @@ class App extends Component {
         e.preventDefault();
         let newContact = {name: this.state.name, expirationDate: this.state.expirationDate};
         this.props.createContact(newContact);
+    }
+
+    onChange(e) {
+        this.setState({
+            contactType: e.target.value
+        });
     }
 
     createContact(contact) {
@@ -52,7 +65,16 @@ class App extends Component {
                     <Col span={6}>
                         <InputForm createContact={this.createContact}/>
                     </Col>
+                    <Col>
+                        <Radio.Group onChange={this.onChange} value={this.state.contactType}>
+                            <Radio value={1}>Daily</Radio>
+                            <Radio value={2}>BiWeekly</Radio>
+                            <Radio value={3}>Monthly</Radio>
+                        </Radio.Group>
+                    </Col>
                 </Row>
+
+
                 <Row>
                     <Contacts contacts={this.state.contacts}/>
                 </Row>
