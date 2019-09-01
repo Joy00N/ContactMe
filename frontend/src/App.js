@@ -4,6 +4,7 @@ import Users from './components/Users'
 import './App.css';
 import {Row, Col, Radio} from 'antd';
 import InputForm from "./components/InputForm";
+import axios from 'axios';
 
 class App extends Component {
     constructor(props) {
@@ -18,20 +19,6 @@ class App extends Component {
     }
 
 
-    createContact(contact) {
-        fetch('http://localhost:8080/contact/contacts',
-            {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(contact)
-            })
-            .then(
-                res => null
-            ).catch(e => console.log(e))
-    }
-
     handleClick(e) {
         e.preventDefault();
         let newContact = {name: this.state.name, expirationDate: this.state.expirationDate};
@@ -45,17 +32,23 @@ class App extends Component {
     }
 
     createContact(contact) {
-        fetch('http://localhost:8080/contact/contacts',
-            {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(contact)
-            })
-            .then(
-                res => null
-            ).catch(e => console.log(e))
+        // fetch('http://localhost:8080/contact/contacts',
+        //     {
+        //         method: 'POST',
+        //         headers: {
+        //             'Content-Type': 'application/json',
+        //         },
+        //         body: JSON.stringify(contact)
+        //     })
+        //     .then(
+        //         res => null
+        //     ).catch(e => console.log(e))
+        console.log(contact);
+        const data = {headers:{'Content-Type': 'application/json'}, body: JSON.stringify(contact)};
+        axios.post('http://localhost:8080/contact/contacts', {data})
+            .then(res => {
+                console.log(res.data);
+        })
     }
 
     render() {
@@ -86,21 +79,15 @@ class App extends Component {
     }
 
     componentDidMount() {
-        // axios.get('http://localhost:8080/contact/contacts')
-        Promise.all([fetch('http://localhost:8080/contact/contacts'), fetch('http://localhost:8080/user/users')])
-            .then(([res1, res2]) => {
-                return Promise.all([res1.json(), res2.json()])
-            })
-            .then(([res1, res2]) => {
-                this.setState({contacts: res1});
-                this.setState({users: res2});
-            })
-        // fetch('http://localhost:8080/contact/contacts')
-        //     .then(res => res.json())
-        //     .then((data) => {
-        //         this.setState({contacts: data})
-        //     })
-        //     .catch(console.log)
+        axios.get('http://localhost:8080/contact/contacts')
+            .then(res =>{
+                this.setState({contacts: res.data});
+            });
+
+        axios.get('http://localhost:8080/user/users')
+            .then(res =>{
+                this.setState({users: res.data});
+            });
     }
 
 }
