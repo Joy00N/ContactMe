@@ -6,6 +6,8 @@ import {Row, Col} from 'antd';
 import InputForm from "./components/InputForm";
 import mainLogo from './ContactMe.jpg';
 import axios from 'axios';
+import SignUpForm from "./components/SignUpForm";
+import {BrowserRouter as Router, Route, Link} from "react-router-dom";
 
 class App extends Component {
     constructor(props) {
@@ -55,6 +57,14 @@ class App extends Component {
                         <Users users={this.state.users}/>
                     </Col>
                 </Row>
+
+                <Router>
+                    <h1>ContactMe</h1>
+                    <Link to ="/SignUpForm"><button>Sign Up</button></Link>
+
+                    <Route exact path="/SignUpForm" component={SignUpForm}></Route>
+                </Router>
+
             </div>
         );
     }
