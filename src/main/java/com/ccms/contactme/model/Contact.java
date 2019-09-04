@@ -19,5 +19,6 @@ public class Contact {
 
     private String name;
     private String expirationDate;
+    private String contactType;
 
 }

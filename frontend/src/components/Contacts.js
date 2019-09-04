@@ -9,6 +9,7 @@ const Contacts = ({contacts}) => {
                 <Row>
                     <Col span={6}>{contact.name}</Col>
                     <Col span={6}>{contact.expirationDate}</Col>
+                    <Col span={6}>{contact.contactType}</Col>
                 </Row>
             ))}
         </div>
