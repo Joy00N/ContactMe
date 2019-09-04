@@ -13,16 +13,18 @@ class App extends Component {
             contacts: [],
             users: []
         };
-
+        this.createContact = this.createContact.bind();
     }
 
     createContact(contact) {
-        console.log(contact);
-        const data = {headers:{'Content-Type': 'application/json'}, body: JSON.stringify(contact)};
-        axios.post('http://localhost:8080/contact/contacts', {data})
+        axios.post('http://localhost:8080/contact/contacts', contact)
             .then(res => {
                 console.log(res.data);
-        })
+            })
+            .catch(error => {
+                console.log(error.response);
+            });
+
     }
 
     render() {
@@ -47,12 +49,12 @@ class App extends Component {
 
     componentDidMount() {
         axios.get('http://localhost:8080/contact/contacts')
-            .then(res =>{
+            .then(res => {
                 this.setState({contacts: res.data});
             });
 
         axios.get('http://localhost:8080/user/users')
-            .then(res =>{
+            .then(res => {
                 this.setState({users: res.data});
             });
     }

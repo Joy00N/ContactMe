@@ -6,7 +6,7 @@ const Contacts = ({contacts}) => {
         <div>
             <Row><Col span={6}>Contact List</Col></Row>
             {contacts.map((contact) => (
-                <Row>
+                <Row key={contact.id}>
                     <Col span={6}>{contact.name}</Col>
                     <Col span={6}>{contact.expirationDate}</Col>
                     <Col span={6}>{contact.contactType}</Col>
