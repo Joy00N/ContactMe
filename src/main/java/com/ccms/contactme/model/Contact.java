@@ -18,7 +18,7 @@ public class Contact {
     private String id;
 
     private String name;
-    private String expirationDate;
+    private String openingDate;
     private String contactType;
 
 }
