@@ -3,6 +3,7 @@ import Contacts from './components/Contacts'
 import './App.css';
 import {Row, Col} from 'antd';
 import InputForm from "./components/InputForm";
+import mainLogo from './ContactMe.jpg';
 
 class App extends Component {
     state = {
@@ -46,6 +47,7 @@ class App extends Component {
     render() {
         return (
             <div>
+                <img src={mainLogo} name="p1"/>
                 <Row>
                     <Col span={6}>
                         <InputForm createContact={this.createContact}/>

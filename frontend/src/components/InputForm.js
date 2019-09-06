@@ -6,6 +6,7 @@ class InputForm extends React.Component {
         super(props);
         this.state = {
             name: '',
+            password: '',
             expirationDate: ''
         };
         this.handleChange = this.handleChange.bind(this);
@@ -28,9 +29,12 @@ class InputForm extends React.Component {
     render() {
         return (
             <div>
+
                 User Name: <Input name="name" onChange={this.handleChange}/>
+                Password: <Input name="password" onChange={this.handleChange}/>
                 Expiration Date: <Input name="expirationDate" onChange={this.handleChange}/>
-                <Button type="primary" onClick={this.handleClick}>Contact Me</Button>
+                <Button type="primary" onClick={this.handleClick}>Log In</Button>
+                <Button type="primary" onClick={this.handleClick}>Sign Up</Button>
             </div>
         )
     }
