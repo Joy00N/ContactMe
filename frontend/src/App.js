@@ -13,17 +13,24 @@ class App extends Component {
             contacts: [],
             users: []
         };
-        this.createContact = this.createContact.bind();
+        this.createContact = this.createContact.bind(this);
     }
 
     createContact(contact) {
+
         axios.post('http://localhost:8080/contact/contacts', contact)
             .then(res => {
                 console.log(res.data);
+
+                this.setState({
+                    contacts: [...this.state.contacts, res.data]
+                });
             })
             .catch(error => {
                 console.log(error.response);
             });
+
+        console.log(this.state.contacts);
 
     }
 
@@ -58,7 +65,6 @@ class App extends Component {
                 this.setState({users: res.data});
             });
     }
-
 }
 
 export default App;

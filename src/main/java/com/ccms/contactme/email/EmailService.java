@@ -28,7 +28,7 @@ public class EmailService {
             "<h1>Contact Lenses Expiration Alert!</h1>",
             "<p>Hi <user>! Your contact lenses will be expired on <date> "
     );
-    
+
     public static void main(String[] args) throws Exception {
         Properties props = System.getProperties();
         props.put("mail.transport.protocol", "smtp");
