@@ -1,47 +1,31 @@
 import React, {Component} from 'react';
 import Contacts from './components/Contacts'
+import Users from './components/Users'
 import './App.css';
 import {Row, Col} from 'antd';
 import InputForm from "./components/InputForm";
 import mainLogo from './ContactMe.jpg';
+import axios from 'axios';
 
 class App extends Component {
-    state = {
-        contacts: [],
-    };
-
-    createContact(contact) {
-        fetch('http://localhost:8080/contact/contacts',
-            {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(contact)
-            })
-            .then(
-                res => null
-            ).catch(e => console.log(e))
-    }
-
-    handleClick(e) {
-        e.preventDefault();
-        let newContact = {name: this.state.name, expirationDate: this.state.expirationDate};
-        this.props.createContact(newContact);
+    constructor(props) {
+        super(props);
+        this.state = {
+            contacts: [],
+            users: []
+        };
+        this.createContact = this.createContact.bind();
     }
 
     createContact(contact) {
-        fetch('http://localhost:8080/contact/contacts',
-            {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(contact)
+        axios.post('http://localhost:8080/contact/contacts', contact)
+            .then(res => {
+                console.log(res.data);
             })
-            .then(
-                res => null
-            ).catch(e => console.log(e))
+            .catch(error => {
+                console.log(error.response);
+            });
+
     }
 
     render() {
@@ -53,19 +37,28 @@ class App extends Component {
                         <InputForm createContact={this.createContact}/>
                     </Col>
                 </Row>
-                <Contacts contacts={this.state.contacts}/>
+
+
+                <Row>
+                    <Contacts contacts={this.state.contacts}/>
+                </Row>
+                <Row>
+                    <Users users={this.state.users}/>
+                </Row>
             </div>
         );
     }
 
     componentDidMount() {
-        // axios.get('http://localhost:8080/contact/contacts')
-        fetch('http://localhost:8080/contact/contacts')
-            .then(res => res.json())
-            .then((data) => {
-                this.setState({contacts: data})
-            })
-            .catch(console.log)
+        axios.get('http://localhost:8080/contact/contacts')
+            .then(res => {
+                this.setState({contacts: res.data});
+            });
+
+        axios.get('http://localhost:8080/user/users')
+            .then(res => {
+                this.setState({users: res.data});
+            });
     }
 
 }

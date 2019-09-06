@@ -12,7 +12,7 @@ import java.util.Optional;
 public class ContactServiceImpl implements ContactService {
 
     @Autowired
-    ContactRepository contactRepository;
+    private ContactRepository contactRepository;
 
     @Override
     public List<Contact> findAll() {
