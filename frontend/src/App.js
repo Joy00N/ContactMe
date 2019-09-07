@@ -29,9 +29,6 @@ class App extends Component {
             .catch(error => {
                 console.log(error.response);
             });
-
-        console.log(this.state.contacts);
-
     }
 
     render() {

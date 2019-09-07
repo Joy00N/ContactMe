@@ -28,34 +28,43 @@ class InputForm extends React.Component {
     }
 
     handleClick(e) {
-        e.preventDefault();
+
         let newContact = {
             name: this.state.name,
             openingDate: this.state.openingDate,
             contactType: this.state.contactType
         };
         this.props.createContact(newContact);
+
+        e.preventDefault();
+        this.setState({
+            name: '',
+            openingDate: '',
+            contactType: 'daily'
+        })
     }
+
 
     render() {
         return (
             <div>
                 <table>
                     <tbody>
+                    <form onSubmit={this.handleClick}>
                     <tr>
                         <td>Product Name:</td>
                         <td>
-                            <Input name="name" onChange={this.handleChange}/>
+                            <Input id="name" name="name" onChange={this.handleChange}/>
                         </td>
                         <td>Opening Date:</td>
                         <td>
-                            <DatePicker name="openingDate" onChange={this.handleDatePicker}/>
+                            <DatePicker id="openingDate" name="openingDate" onChange={this.handleDatePicker}/>
                         </td>
                     </tr>
                     <tr>
                         <td>Select Contact Lenses Type</td>
                         <td>
-                            <Radio.Group onChange={this.handleChange} name="contactType"
+                            <Radio.Group onChange={this.handleChange} id="contactType" name="contactType"
                                          value={this.state.contactType}>
                                 <Radio value="daily">Daily</Radio>
                                 <Radio value="biWeekly">BiWeekly</Radio>
@@ -66,6 +75,7 @@ class InputForm extends React.Component {
                     <tr>
                         <td><Button type="primary" onClick={this.handleClick}>Contact Me</Button></td>
                     </tr>
+                    </form>
                     </tbody>
                 </table>
             </div>
