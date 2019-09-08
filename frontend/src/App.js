@@ -7,6 +7,7 @@ import InputForm from "./components/InputForm";
 import mainLogo from './ContactMe.jpg';
 import axios from 'axios';
 import SignUpForm from "./components/SignUpForm";
+import SignInForm from "./components/SignInForm";
 import {BrowserRouter as Router, Route, Link} from "react-router-dom";
 
 class App extends Component {
@@ -59,11 +60,11 @@ class App extends Component {
                 </Row>
 
                 <Router>
-                    <h1>ContactMe</h1>
-                    <Link to ="/SignUpForm"><button>Sign Up</button></Link>
-
-                    <Route exact path="/SignUpForm" component={SignUpForm}></Route>
+                    <Route exact path="/" component={SignInForm}></Route>
+                    <Route exact path="/SignUpForm" render={(props)=> <SignUpForm {...props} createContact={this.createContact} />} ></Route>
                 </Router>
+
+                <Contacts contacts={this.state.contacts}/>
 
             </div>
         );
