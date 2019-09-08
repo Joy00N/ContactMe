@@ -50,7 +50,6 @@ class InputForm extends React.Component {
             <div>
                 <table>
                     <tbody>
-                    <form onSubmit={this.handleClick}>
                     <tr>
                         <td>Product Name:</td>
                         <td>
@@ -75,7 +74,6 @@ class InputForm extends React.Component {
                     <tr>
                         <td><Button type="primary" onClick={this.handleClick}>Contact Me</Button></td>
                     </tr>
-                    </form>
                     </tbody>
                 </table>
             </div>
