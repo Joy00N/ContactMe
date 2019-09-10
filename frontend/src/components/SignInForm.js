@@ -1,6 +1,7 @@
 import React from 'react';
 import {Input, Button} from 'antd';
-import {Link, Router} from "react-router-dom";
+import {Link, BrowserRouter as Router, Route} from "react-router-dom";
+import SignUpForm from "./SignUpForm";
 
 class SignInForm extends React.Component {
     constructor(props) {
@@ -10,20 +11,48 @@ class SignInForm extends React.Component {
             password: ''
         };
 
+        this.handleChange = this.handleChange.bind(this);
+        this.handleClick = this.handleClick.bind(this);
+        this.handleSignUp = this.handleSignUp.bind(this);
+    }
+
+    handleChange(e) {
+        console.log(e.target.name,'&',e.target.value);
+        this.setState({
+            [e.target.name]: e.target.value
+        })
+        console.log(this.state.username)
+    }
+
+    handleClick(e) {
+        console.log('submitted');
+        console.log(this.state.username);
+        e.preventDefault();
+        let newUser = {
+            username: this.state.username,
+            password: this.state.password
+        };
+
+        this.props.verifyLogin(newUser);
+    }
+
+    handleSignUp(e) {
+        console.log('signUp');
+        e.preventDefault();
+        this.props.showSignUp();
     }
 
     render() {
         const signIn =(
             <div>
-                Username: <input type="text" title="Username"/>
+                Username: <input type="text" name="username" onChange={this.handleChange}/>
                 <br/>
-                Password: <input type="password" title="Password"/>
+                Password: <input type="password" name="password" onChange={this.handleChange}/>
                 <br/>
-                <button type="submit">Submit</button>
+                <button type="primary" onClick={this.handleClick}>Submit</button>
                 <br/>
-
-                <Link to ="/SignUpForm"><button>Sign Up</button></Link>
-
+                <button type="primary" onClick={this.handleSignUp}>Sign Up</button>
+                <br/>
             </div>
         );
 

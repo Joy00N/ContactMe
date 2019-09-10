@@ -21,9 +21,15 @@ public class UserController {
         return service.findAll();
     }
 
+//    @RequestMapping(value = "/users", method = RequestMethod.POST)
+//    private void addNewUser(@RequestBody User user){
+//        service.save(user);
+//    }
+
     @RequestMapping(value = "/users", method = RequestMethod.POST)
-    private void addNewUser(@RequestBody User user){
-        service.save(user);
+    private User addNewUser(@RequestBody User user){
+        return service.save(user);
     }
+
 }
 

@@ -10,10 +10,13 @@ const Users = ({users}) => {
                 </tr>
                 {users.map((user) => (
                     <tr key={user.id}>
-                        <td span={6}>{user.id}</td>
-                        <td span={6}>{user.firstName}</td>
-                        <td span={6}>{user.lasttName}</td>
+                        {/*<td span={6}>{user.id}</td>*/}
+                        <td span={6}>{user.username}</td>
+                        <td span={6}>{user.password}</td>
+                        <td span={6}>{user.firstname}</td>
+                        <td span={6}>{user.lastname}</td>
                         <td span={6}>{user.email}</td>
+                        <td span={6}>{user.phone}</td>
                     </tr>
                 ))}
                 </tbody>
