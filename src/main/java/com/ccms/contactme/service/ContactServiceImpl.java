@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,6 +34,9 @@ public class ContactServiceImpl implements ContactService {
 
     @Override
     public Contact populateFields(Contact contact) {
+        if (contact.getContactType() == null) {
+            return null;
+        }
         LocalDate expirationDate = null;
         if (contact.getContactType().equals(ContactType.DAILY.getValue())) {
             expirationDate = contact.getOpeningDate().plusDays(1);
@@ -45,8 +49,8 @@ public class ContactServiceImpl implements ContactService {
         return contact;
     }
 
-//    @Override
-//    public List<Contact> findExpiredContacts() {
-//        return contactRepository.findExpiredContacts();
-//    }
+    @Override
+    public List<Contact> findExpiredContacts() {
+        return contactRepository.findExpiredContacts(new Date());
+    }
 }

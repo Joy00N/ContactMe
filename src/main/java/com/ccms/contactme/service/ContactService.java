@@ -14,6 +14,6 @@ public interface ContactService {
 
     Contact populateFields(Contact contact);
 
-//    List<Contact> findExpiredContacts();
+    List<Contact> findExpiredContacts();
 
 }

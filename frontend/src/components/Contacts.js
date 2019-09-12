@@ -1,32 +1,46 @@
 import React, {Component} from 'react'
+import {Table} from 'antd'
+
+const columns = [
+    {
+        title: 'Id',
+        dataIndex: 'id',
+        key: 'id',
+    },
+    {
+        title: 'Name',
+        dataIndex: 'name',
+        key: 'name',
+        render: text => <a>{text}</a>,
+    },
+    {
+        title: 'Contact Type',
+        dataIndex: 'contactType',
+        key: 'contactType',
+    },
+    {
+        title: 'Opening Date',
+        dataIndex: 'openingDate',
+        key: 'openingDate',
+    },
+    {
+        title: 'Expiration Date',
+        dataIndex: 'expirationDate',
+        key: 'expirationDate',
+    }
+];
 
 class Contacts extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            contacts: this.props.contacts
+            contacts: []
         }
     }
 
     render() {
         return (
-            <div>
-                <table>
-                    <tbody>
-                    <tr>
-                        <td span={18}>Contact List</td>
-                    </tr>
-                    {this.state.contacts.map((contact) => (
-                        <tr key={contact.id}>
-                            <td span={6}>{contact.name}</td>
-                            <td span={6}>{contact.openingDate}</td>
-                            <td span={6}>{contact.expirationDate}</td>
-                            <td span={6}>{contact.contactType}</td>
-                        </tr>
-                    ))}
-                    </tbody>
-                </table>
-            </div>
+            <Table columns={columns} dataSource={this.state.contacts} rowKey="name"/>
         );
     }
 
