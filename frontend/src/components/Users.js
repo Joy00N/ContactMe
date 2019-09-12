@@ -4,12 +4,11 @@ class Users extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            users: this.props.users
+            users: []
         }
     }
 
     render() {
-        let isUserExist = this.props.users.length === 0 ? false : true;
 
         return (
             this.state.users.map((user) => (
@@ -24,6 +23,12 @@ class Users extends Component {
                 </tr>
             ))
         )
+    }
+
+    componentWillReceiveProps(nextProps) {
+        this.setState({
+            contacts: nextProps.contacts
+        });
     }
 }
 
