@@ -75,10 +75,10 @@ class App extends Component {
                 this.setState({contacts: res.data});
             });
 
-        // axios.get('http://localhost:8080/user/users')
-        //     .then(res => {
-        //         this.setState({users: res.data});
-        //     });
+        axios.get('http://localhost:8080/user/users')
+            .then(res => {
+                this.setState({users: res.data});
+            });
     }
 }
 
