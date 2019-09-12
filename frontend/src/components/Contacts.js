@@ -20,6 +20,7 @@ class Contacts extends Component {
                         <tr key={contact.id}>
                             <td span={6}>{contact.name}</td>
                             <td span={6}>{contact.openingDate}</td>
+                            <td span={6}>{contact.expirationDate}</td>
                             <td span={6}>{contact.contactType}</td>
                         </tr>
                     ))}

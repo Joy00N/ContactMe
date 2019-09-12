@@ -11,4 +11,9 @@ public interface ContactService {
     Optional<Contact> findById(String id);
 
     Contact save(Contact contact);
+
+    Contact populateFields(Contact contact);
+
+//    List<Contact> findExpiredContacts();
+
 }

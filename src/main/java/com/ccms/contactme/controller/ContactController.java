@@ -28,7 +28,12 @@ public class ContactController {
 
     @RequestMapping(value = "/contacts", method = RequestMethod.POST)
     public Contact addNewContact(@RequestBody Contact contact) {
-        return contactService.save(contact);
+        Contact newContact = contactService.populateFields(contact);
+        return contactService.save(newContact);
     }
 
+//    @RequestMapping(value = "/contacts/expired", method = RequestMethod.GET)
+//    public List<Contact> getExpiredContacts() {
+//        return contactService.findExpiredContacts();
+//    }
 }
