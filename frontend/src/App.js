@@ -4,6 +4,7 @@ import Users from './components/Users'
 import './App.css';
 import {Row, Col} from 'antd';
 import InputForm from "./components/InputForm";
+import mainLogo from './ContactMe.jpg';
 import axios from 'axios';
 
 class App extends Component {
@@ -34,6 +35,7 @@ class App extends Component {
     render() {
         return (
             <div>
+                <img src={mainLogo} name="p1"/>
                 <Row>
                     <Col span={6}>
                         <InputForm createContact={this.createContact}/>
