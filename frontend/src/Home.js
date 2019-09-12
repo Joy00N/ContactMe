@@ -65,7 +65,7 @@ class Home extends Component{
                 {this.state.verified ? 'Signed In!':'Please Sign In'}
                 {this.state.verified ? mainPage : signInSignUp}
 
-                <Users users={this.state.users}/>
+                {/*<Users users={this.state.users}/>*/}
             </div>
         );
     }

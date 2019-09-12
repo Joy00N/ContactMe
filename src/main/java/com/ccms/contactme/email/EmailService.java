@@ -1,5 +1,8 @@
 package com.ccms.contactme.email;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
+
 import java.util.Properties;
 
 import javax.mail.Message;
@@ -7,29 +10,42 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import javax.validation.Valid;
 
-
+@PropertySource("classpath:email.properties")
 public class EmailService {
-    static final String FROM = "ccms.jo.yang.jo@gmail.com";
-    static final String FROMNAME = "ContactMe";
+    @Value("${from.email}")
+    private String FROM;
 
-    static final String TO = "yoonee9000@gmail.com";
-    static final String SMTP_USERNAME = "AKIAR2YOOOV3D2VPJG7G";
-    static final String SMTP_PASSWORD = "BHXhF1EpEfYLt4ZyOOyNPiephfbDt3g6uGFpm02BxGVL";
+    @Value("${fromename}")
+    private String FROMNAME;
 
-//    static final String CONFIGSET = "ConfigSet";
-    static final String HOST = "email-smtp.us-east-1.amazonaws.com";
+//    @Value("${to.email}")
+//    private String TO;
+
+    @Value("${stmp.username}")
+    private String SMTP_USERNAME;
+
+    @Value("${stmp.password}")
+    private String SMTP_PASSWORD;
+
+    @Value("${host}")
+    private String HOST;
 
     //25, 465 or 587
-    static final int PORT = 587;
-    static final String SUBJECT = "ContactMe notification";
-    static final String BODY = String.join(
+    @Value("${port}")
+    private int PORT;
+
+    @Value("${subject}")
+    private String SUBJECT;
+
+    final String BODY = String.join(
             System.getProperty("line.separator"),
             "<h1>Contact Lenses Expiration Alert!</h1>",
             "<p>Hi <user>! Your contact lenses will be expired on <date> "
     );
 
-    public static void main(String[] args) throws Exception {
+    public void sendEmailNotification(String toEmail) throws Exception {
         Properties props = System.getProperties();
         props.put("mail.transport.protocol", "smtp");
         props.put("mail.smtp.port", PORT);
@@ -40,11 +56,9 @@ public class EmailService {
 
         MimeMessage msg = new MimeMessage(session);
         msg.setFrom(new InternetAddress(FROM,FROMNAME));
-        msg.setRecipient(Message.RecipientType.TO, new InternetAddress(TO));
+        msg.setRecipient(Message.RecipientType.TO, new InternetAddress(toEmail));
         msg.setSubject(SUBJECT);
         msg.setContent(BODY,"text/html");
-
-//        msg.setHeader("X-SES-CONFIGURATION-SET", CONFIGSET);
 
         Transport transport = session.getTransport();
         try

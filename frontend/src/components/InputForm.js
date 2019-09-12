@@ -29,6 +29,7 @@ class InputForm extends React.Component {
     }
 
     handleClick(e) {
+        e.preventDefault();
 
         let newContact = {
             name: this.state.name,
@@ -37,7 +38,6 @@ class InputForm extends React.Component {
         };
         this.props.createContact(newContact);
 
-        e.preventDefault();
         this.setState({
             name: '',
             openingDate: '',

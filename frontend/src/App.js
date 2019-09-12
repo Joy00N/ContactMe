@@ -2,21 +2,20 @@ import React, {Component} from 'react';
 import Contacts from './components/Contacts'
 import Users from './components/Users'
 import './App.css';
-import {Row, Col} from 'antd';
+import {Col, Row, Button} from 'antd';
 import InputForm from "./components/InputForm";
 import mainLogo from './ContactMe.jpg';
 import axios from 'axios';
-import SignUpForm from "./components/SignUpForm";
-import SignInForm from "./components/SignInForm";
-import {BrowserRouter as Router, Route, Link} from "react-router-dom";
+import autoBind from 'react-autobind';
 
 class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            contacts: []
+            contacts: [],
+            expiredContacts: []
         };
-        this.createContact = this.createContact.bind(this);
+        autoBind()
     }
 
     createContact(contact) {
@@ -31,6 +30,11 @@ class App extends Component {
             .catch(error => {
                 console.log(error.response);
             });
+    }
+
+
+    handleClick(e) {
+        alert("email sent");
     }
 
     render() {
@@ -53,18 +57,22 @@ class App extends Component {
                     <Contacts contacts={this.state.contacts}/>
                 </Row>
                 <Row>
+                    <Col>Users</Col>
                     <Col>
                         <Users users={this.state.users}/>
                     </Col>
                 </Row>
 
-                <Router>
-                    <Route exact path="/" component={SignInForm}></Route>
-                    <Route exact path="/SignUpForm" render={(props)=> <SignUpForm {...props} createContact={this.createContact} />} ></Route>
-                </Router>
+                <Row>
+                    <Col>Expired Contacts</Col>
+                    <Col>
+                        <Contacts contacts={this.state.expiredContacts}/>
+                    </Col>
+                </Row>
 
-                <Contacts contacts={this.state.contacts}/>
-
+                <Row>
+                    <Button type="primary" onClick={this.handleClick}>Send Notification</Button>
+                </Row>
             </div>
         );
     }
@@ -78,6 +86,11 @@ class App extends Component {
         axios.get('http://localhost:8080/user/users')
             .then(res => {
                 this.setState({users: res.data});
+            });
+
+        axios.get('http://localhost:8080/contact/contacts/expired')
+            .then(res => {
+                this.setState({expiredContacts: res.data});
             });
     }
 }

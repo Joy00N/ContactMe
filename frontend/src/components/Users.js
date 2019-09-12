@@ -27,7 +27,7 @@ class Users extends Component {
 
     componentWillReceiveProps(nextProps) {
         this.setState({
-            contacts: nextProps.contacts
+            users: nextProps.users
         });
     }
 }
