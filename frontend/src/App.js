@@ -18,7 +18,6 @@ class App extends Component {
     }
 
     createContact(contact) {
-
         axios.post('http://localhost:8080/contact/contacts', contact)
             .then(res => {
                 console.log(res.data);
@@ -35,19 +34,26 @@ class App extends Component {
     render() {
         return (
             <div>
-                <img src={mainLogo} name="p1"/>
                 <Row>
-                    <Col span={6}>
+                    <Col>
+                        <img src={mainLogo} alt="main logo" name="p1" width="80" height="80"/>
+                    </Col>
+                    <Col>
+                        <h2>Contact Me!</h2>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col>
                         <InputForm createContact={this.createContact}/>
                     </Col>
                 </Row>
-
-
                 <Row>
                     <Contacts contacts={this.state.contacts}/>
                 </Row>
                 <Row>
-                    <Users users={this.state.users}/>
+                    <Col>
+                        <Users users={this.state.users}/>
+                    </Col>
                 </Row>
             </div>
         );

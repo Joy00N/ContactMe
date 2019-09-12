@@ -8,7 +8,6 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 @Document
 @Getter
@@ -16,7 +15,6 @@ import java.util.Date;
 @NoArgsConstructor
 public class Contact {
 
-    @Generated
     @Id
     private String id;
 

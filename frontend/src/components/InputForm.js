@@ -1,24 +1,7 @@
 import React from 'react'
-import {Input, Button, Radio, DatePicker, Menu, Dropdown, Icon} from 'antd';
+import {Input, Button, Radio, DatePicker} from 'antd';
 import 'antd/dist/antd.css';
 import '../css/bootstrap.css';
-
-
-const menu = (
-    <Menu>
-        <Menu.Item key="0">
-            <a href="http://www.alipay.com/">Biofinity</a>
-        </Menu.Item>
-        <Menu.Item key="1">
-            <a href="http://www.taobao.com/">One day Acuvue</a>
-        </Menu.Item>
-        <Menu.Item key="1">
-            <a href="http://www.taobao.com/">Total 1</a>
-        </Menu.Item>
-        <Menu.Divider />
-        <Menu.Item key="3">Other</Menu.Item>
-    </Menu>
-);
 
 class InputForm extends React.Component {
     constructor(props) {
@@ -70,29 +53,14 @@ class InputForm extends React.Component {
                     <tbody>
                     <tr>
                         <td>Product Name:</td>
-                        <Dropdown overlay={menu} trigger={['click']}>
-                            <a className="ant-dropdown-link" href="#">
-                                Select<Icon type="down" />
-                            </a>
-                        </Dropdown>
-
-                        {/*<div className="dropdown">*/}
-                        {/*    <button className="btn btn-default dropdown-toggle" data-toggle="dropdown">Select*/}
-                        {/*        <span className="caret"> </ span></button>*/}
-                        {/*    <ul className="dropdown-menu" role="menu">*/}
-                        {/*        <li role="presentation">*/}
-                        {/*            <a href="#">Biofinity</a>*/}
-                        {/*        </li>*/}
-                        {/*        <li role="presentation">*/}
-                        {/*            <a href="#">One day Acuvue</a>*/}
-                        {/*        </li>*/}
-                        {/*        <li role="presentation">*/}
-                        {/*            <a href="#">Total one</a>*/}
-                        {/*        </li>*/}
-                        {/*    </ul>*/}
-                        {/*</div>*/}
-
-
+                        <td>
+                            <select>
+                                <option value="grapefruit">Grapefruit</option>
+                                <option value="lime">Lime</option>
+                                <option value="coconut">Coconut</option>
+                                <option value="mango">Mango</option>
+                            </select>
+                        </td>
                         <td>
                             <Input id="name" name="name" onChange={this.handleChange}/>
                         </td>
@@ -121,7 +89,6 @@ class InputForm extends React.Component {
         )
     }
 
-};
-
+}
 
 export default InputForm
