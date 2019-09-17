@@ -2,7 +2,6 @@ package com.ccms.contactme.service;
 
 import com.ccms.contactme.config.EmailProperties;
 import com.ccms.contactme.model.Contact;
-import com.ccms.contactme.model.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,12 +35,12 @@ public class EmailService {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("<h1>Contact Lenses Expiration Alert!</h1>");
         stringBuilder.append("<p>Hi " + fname + "! Your contact lenses in below are expired. " + "</p>");
-        stringBuilder.append("<p>" + contacts.stream().map(v->v.getName()).collect(Collectors.toSet()).toString() + "</p>");
+        stringBuilder.append("<p>" + contacts.stream().map(v -> v.getName()).collect(Collectors.toSet()).toString() + "</p>");
 
         String content = stringBuilder.toString();
 
         String toEmail = contacts.stream()
-                .map(v-> v.getUser().getEmail())
+                .map(v -> v.getUser().getEmail())
                 .findFirst()
                 .get();
 

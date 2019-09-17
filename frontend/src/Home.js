@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import App from "./App";
 import axios from "axios";
-import {LocaleProvider} from "antd";
+import {LocaleProvider, Button} from "antd";
 import enUS from 'antd/lib/locale-provider/en_US';
 import SignInForm from "./components/SignInForm";
 import {BrowserRouter as Router, Route} from "react-router-dom";
@@ -21,6 +21,9 @@ class Home extends Component{
     }
 
 
+    onclick(){
+        this.props.history.push('/');
+    }
 
     verifyLogin(user){
         if(user.username=='jihyun' && user.password=='1234') {
@@ -45,6 +48,7 @@ class Home extends Component{
                 <Router>
                         <div>
                             <Route exact path={"/"} component={App}/>
+                            <Button onClick={this.onclick} />
                             <Route path={"/signIn"} component={SignInForm}/>
                             <Route path={"/signUp"} component={SignUpForm}/>
                         </div>
