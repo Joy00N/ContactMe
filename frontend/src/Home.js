@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import App from "./App";
 import axios from "axios";
-import {Col, Row} from "antd";
+import {LocaleProvider} from "antd";
+import enUS from 'antd/lib/locale-provider/en_US';
 import SignInForm from "./components/SignInForm";
 import Users from "./components/Users";
 import {BrowserRouter as Router, Route, Link} from "react-router-dom";
@@ -49,24 +50,25 @@ class Home extends Component{
             <SignUpForm showSignIn = {this.showSignIn}/>
         )
 
-        const signInSignUp=(
-            <div>
-                {!this.state.signUpPage && signIn}
-                {this.state.signUpPage && signUp}
-            </div>
-        )
-
-        const mainPage = (
-            <App/>
+        // const signInSignUp=(
+        //     <div>
+        //         {!this.state.signUpPage && signIn}
+        //         {this.state.signUpPage && signUp}
+        //     </div>
         )
 
         return (
-            <div>
-                {this.state.verified ? 'Signed In!':'Please Sign In'}
-                {this.state.verified ? mainPage : signInSignUp}
+            <LocaleProvider locale={enUS}>
+                <Router>
+                        <div>
+                            <Route exact path={"/"} component={App}/>
+                            <SignInForm verifyLogin = {this.verifyLogin} showSignUp = {this.showSignUp}/>
 
-                {/*<Users users={this.state.users}/>*/}
-            </div>
+                            <Route path={"/contact/contacts"} component={}/>
+                        </div>
+                </Router>
+            </LocaleProvider>
+
         );
     }
 

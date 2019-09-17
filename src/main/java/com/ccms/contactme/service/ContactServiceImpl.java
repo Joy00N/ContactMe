@@ -34,9 +34,12 @@ public class ContactServiceImpl implements ContactService {
 
     @Override
     public Contact populateFields(Contact contact) {
-        if (contact.getContactType() == null) {
-            return null;
-        }
+        populateExpiration(contact);
+
+        return contact;
+    }
+
+    private void populateExpiration(Contact contact){
         LocalDate expirationDate = null;
         if (contact.getContactType().equals(ContactType.DAILY.getValue())) {
             expirationDate = contact.getOpeningDate().plusDays(1);
@@ -46,7 +49,11 @@ public class ContactServiceImpl implements ContactService {
             expirationDate = contact.getOpeningDate().plusMonths(1);
         }
         contact.setExpirationDate(expirationDate);
-        return contact;
+    }
+
+    private void populateUserInfo(Contact contact){
+
+//        contact.setUser();
     }
 
     @Override

@@ -34,6 +34,15 @@ class App extends Component {
 
 
     handleClick(e) {
+
+        axios.get('http://localhost:8080/contact/sendEmail')
+            .then(res => {
+
+            })
+            .catch(error => {
+                console.log(error.response);
+            });
+
         alert("email sent");
     }
 
@@ -71,7 +80,7 @@ class App extends Component {
                 </Row>
 
                 <Row>
-                    <Button type="primary" onClick={this.handleClick}>Send Notification</Button>
+                    <Button type="primary" onClick={this.handleClick} href="/sendEmail">Send Notification</Button>
                 </Row>
             </div>
         );

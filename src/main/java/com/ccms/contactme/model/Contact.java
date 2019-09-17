@@ -17,7 +17,7 @@ public class Contact {
 
     @Id
     private String id;
-
+    private User user;
     private String name;
     private LocalDate openingDate;
     private LocalDate expirationDate;
