@@ -15,7 +15,7 @@ class App extends Component {
             contacts: [],
             expiredContacts: []
         };
-        autoBind()
+        autoBind();
     }
 
     createContact(contact) {

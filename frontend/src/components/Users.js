@@ -1,4 +1,39 @@
 import React, {Component} from 'react'
+import {Table} from 'antd'
+
+const columns = [
+    {
+        title: 'Id',
+        dataIndex: 'id',
+        key: 'id',
+    },
+    {
+        title: 'Username',
+        dataIndex: 'username',
+        key: 'username',
+        render: text => <a>{text}</a>,
+    },
+    {
+        title: 'First Name',
+        dataIndex: 'firstname',
+        key: 'firstname',
+    },
+    {
+        title: 'Last Name',
+        dataIndex: 'lastname',
+        key: 'lastname',
+    },
+    {
+        title: 'Email',
+        dataIndex: 'email',
+        key: 'email',
+    },
+    {
+        title: 'Phone',
+        dataIndex: 'phone',
+        key: 'phone',
+    }
+];
 
 class Users extends Component {
     constructor(props) {
@@ -9,20 +44,9 @@ class Users extends Component {
     }
 
     render() {
-
         return (
-            this.state.users.map((user) => (
-                <tr key={user.id}>
-                    {/*<td span={6}>{user.id}</td>*/}
-                    <td span={6}>{user.username}</td>
-                    <td span={6}>{user.password}</td>
-                    <td span={6}>{user.firstname}</td>
-                    <td span={6}>{user.lastname}</td>
-                    <td span={6}>{user.email}</td>
-                    <td span={6}>{user.phone}</td>
-                </tr>
-            ))
-        )
+            <Table columns={columns} dataSource={this.state.users} rowKey="id"/>
+        );
     }
 
     componentWillReceiveProps(nextProps) {

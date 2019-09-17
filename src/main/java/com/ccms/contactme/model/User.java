@@ -16,10 +16,11 @@ import java.util.List;
 @NoArgsConstructor
 public class User {
 
-    public User(String id, String firstname, String lastname){
+    public User(String id, String firstname, String lastname, String email){
         this.id=id;
         this.firstname=firstname;
         this.lastname=lastname;
+        this.email=email;
     }
 
     @Id

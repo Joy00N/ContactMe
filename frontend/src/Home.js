@@ -4,9 +4,9 @@ import axios from "axios";
 import {LocaleProvider} from "antd";
 import enUS from 'antd/lib/locale-provider/en_US';
 import SignInForm from "./components/SignInForm";
-import Users from "./components/Users";
-import {BrowserRouter as Router, Route, Link} from "react-router-dom";
+import {BrowserRouter as Router, Route} from "react-router-dom";
 import SignUpForm from "./components/SignUpForm";
+import autoBind from 'react-autobind';
 
 class Home extends Component{
 
@@ -17,9 +17,7 @@ class Home extends Component{
             signUpPage:false,
             users:[]
         };
-        this.verifyLogin = this.verifyLogin.bind(this);
-        this.showSignUp = this.showSignUp.bind(this);
-        this.showSignIn = this.showSignIn.bind(this);
+        autoBind();
     }
 
 
@@ -42,29 +40,13 @@ class Home extends Component{
 
     render() {
 
-        const signIn = (
-            <SignInForm verifyLogin = {this.verifyLogin} showSignUp = {this.showSignUp}/>
-        )
-
-        const signUp = (
-            <SignUpForm showSignIn = {this.showSignIn}/>
-        )
-
-        // const signInSignUp=(
-        //     <div>
-        //         {!this.state.signUpPage && signIn}
-        //         {this.state.signUpPage && signUp}
-        //     </div>
-        )
-
         return (
             <LocaleProvider locale={enUS}>
                 <Router>
                         <div>
                             <Route exact path={"/"} component={App}/>
-                            <SignInForm verifyLogin = {this.verifyLogin} showSignUp = {this.showSignUp}/>
-
-                            <Route path={"/contact/contacts"} component={}/>
+                            <Route path={"/signIn"} component={SignInForm}/>
+                            <Route path={"/signUp"} component={SignUpForm}/>
                         </div>
                 </Router>
             </LocaleProvider>

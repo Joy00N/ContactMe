@@ -1,7 +1,4 @@
 import React from 'react';
-import {Input, Button} from 'antd';
-import {Link, BrowserRouter as Router, Route} from "react-router-dom";
-import SignUpForm from "./SignUpForm";
 
 class SignInForm extends React.Component {
     constructor(props) {
@@ -20,7 +17,7 @@ class SignInForm extends React.Component {
         console.log(e.target.name,'&',e.target.value);
         this.setState({
             [e.target.name]: e.target.value
-        })
+        });
         console.log(this.state.username)
     }
 

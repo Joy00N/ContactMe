@@ -5,17 +5,22 @@ import com.ccms.contactme.model.Contact;
 import com.ccms.contactme.model.User;
 import com.ccms.contactme.service.ContactService;
 import com.ccms.contactme.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import javax.validation.constraints.Email;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/contact")
 public class ContactController {
+
+    Logger logger = LoggerFactory.getLogger(ContactController.class);
 
     @Autowired
     private ContactService contactService;
@@ -47,16 +52,35 @@ public class ContactController {
         return contactService.findExpiredContacts();
     }
 
+    @SuppressWarnings("unchecked")
     @RequestMapping(value = "/sendEmail", method = RequestMethod.GET)
     public void sendEmailNotification() throws Exception {
         List<Contact> expiredContacts = contactService.findExpiredContacts();
-        List<User> expiredUsers = new ArrayList<>();
+
+        expiredContacts.stream()
+                .forEach(c -> c.setUser(new User("1", "Yoon", "Jo", "yoonee9000@gmail.com")));
+
+        Map<String, Set<Contact>> expiredMap = new HashMap<>();
+
         for(Contact c : expiredContacts){
-
-            expiredUsers.add(userService.findByName(c.getUser().getFirstname()));
-
+            User user = userService.findByFirstName(c.getUser().getFirstname());
+            if(expiredMap.containsKey(user.getFirstname())){
+                expiredMap.get(user.getFirstname()).add(c);
+            }else{
+                Set<Contact> hs = new HashSet();
+                hs.add(c);
+                expiredMap.put(user.getFirstname(), hs);
+            }
         }
 
-        emailService.sendEmailNotification(expiredUsers.get(0).getEmail());
+        for (String s : expiredMap.keySet()) {
+            try {
+                emailService.sendEmailNotification(s, expiredMap.get(s));
+            } catch (Exception e) {
+                logger.error(e.getMessage());
+            }
+        }
+
+
     }
 }

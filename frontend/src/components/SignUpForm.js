@@ -1,7 +1,4 @@
 import React from 'react';
-import {Input, Button} from 'antd';
-import {Link, BrowserRouter as Router, Route} from "react-router-dom";
-import SignInForm from "./SignInForm";
 import axios from "axios";
 
 class SignUpForm extends React.Component {
