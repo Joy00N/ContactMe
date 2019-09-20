@@ -58,7 +58,8 @@ public class ContactController {
         List<Contact> expiredContacts = contactService.findExpiredContacts();
 
         expiredContacts.stream()
-                .forEach(c -> c.setUser(new User("1", "Yoon", "Jo", "yoonee9000@gmail.com")));
+//                .filter(c -> c.getUser())
+                .forEach(c -> c.setUser(new User("1", "Yoonyoung", "Jo", "yoonee9000@gmail.com")));
 
         Map<String, Set<Contact>> expiredMap = new HashMap<>();
 
