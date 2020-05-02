@@ -1,23 +1,20 @@
 package com.ccms.contactme.controller;
 
-import com.ccms.contactme.service.EmailService;
 import com.ccms.contactme.model.Contact;
 import com.ccms.contactme.model.User;
 import com.ccms.contactme.service.ContactService;
+import com.ccms.contactme.service.EmailService;
 import com.ccms.contactme.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.constraints.Email;
 import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
-@RequestMapping("/contact")
+@RequestMapping("/api")
 public class ContactController {
 
     Logger logger = LoggerFactory.getLogger(ContactController.class);
@@ -63,11 +60,11 @@ public class ContactController {
 
         Map<String, Set<Contact>> expiredMap = new HashMap<>();
 
-        for(Contact c : expiredContacts){
+        for (Contact c : expiredContacts) {
             User user = userService.findByFirstName(c.getUser().getFirstname());
-            if(expiredMap.containsKey(user.getFirstname())){
+            if (expiredMap.containsKey(user.getFirstname())) {
                 expiredMap.get(user.getFirstname()).add(c);
-            }else{
+            } else {
                 Set<Contact> hs = new HashSet();
                 hs.add(c);
                 expiredMap.put(user.getFirstname(), hs);
