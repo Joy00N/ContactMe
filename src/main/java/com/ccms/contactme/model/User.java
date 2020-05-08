@@ -1,13 +1,8 @@
 package com.ccms.contactme.model;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-
-import java.util.List;
 
 @Document
 @Getter
@@ -16,22 +11,20 @@ import java.util.List;
 @NoArgsConstructor
 public class User {
 
-    public User(String id, String firstname, String lastname, String email){
-        this.id=id;
-        this.firstname=firstname;
-        this.lastname=lastname;
-        this.email=email;
+    public User(String username, String firstName, String lastName, String email) {
+        this.username = username;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
     }
 
     @Id
-    private String id;
-
-    private List<Contact> contacts;
+    @Generated
+    private Long id;
     private String username;
     private String password;
-    private String firstname;
-    private String lastname;
+    private String firstName;
+    private String lastName;
     private String email;
-    private String phone;
 
 }

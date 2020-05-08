@@ -10,7 +10,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
@@ -54,26 +58,26 @@ public class ContactController {
     public void sendEmailNotification() throws Exception {
         List<Contact> expiredContacts = contactService.findExpiredContacts();
 
-        expiredContacts.stream()
-//                .filter(c -> c.getUser())
-                .forEach(c -> c.setUser(new User("1", "Yoonyoung", "Jo", "yoonee9000@gmail.com")));
+        //map for user - list of expired contacts
+        Map<Long, List<Contact>> expiredContactUserMap = expiredContacts.stream()
+                .collect(Collectors.groupingBy(Contact::getUserId));
 
-        Map<String, Set<Contact>> expiredMap = new HashMap<>();
+        Map<Long, String> expiredContactProductNamesMap = new HashMap<>();
 
-        for (Contact c : expiredContacts) {
-            User user = userService.findByFirstName(c.getUser().getFirstname());
-            if (expiredMap.containsKey(user.getFirstname())) {
-                expiredMap.get(user.getFirstname()).add(c);
-            } else {
-                Set<Contact> hs = new HashSet();
-                hs.add(c);
-                expiredMap.put(user.getFirstname(), hs);
-            }
+        for (Long l : expiredContactUserMap.keySet()) {
+
+            String expiredProductsName = expiredContactUserMap.get(l).stream()
+                    .map(v -> v.getProductName())
+                    .collect(Collectors.joining());
+
+            expiredContactProductNamesMap.put(l, expiredProductsName);
         }
 
-        for (String s : expiredMap.keySet()) {
+
+        for (Long s : expiredContactProductNamesMap.keySet()) {
+            User user = userService.findById(s).get();
             try {
-                emailService.sendEmailNotification(s, expiredMap.get(s));
+                emailService.sendEmailNotification(user, expiredContactProductNamesMap.get(s));
             } catch (Exception e) {
                 logger.error(e.getMessage());
             }

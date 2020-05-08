@@ -1,7 +1,7 @@
 package com.ccms.contactme.service;
 
 import com.ccms.contactme.config.EmailProperties;
-import com.ccms.contactme.model.Contact;
+import com.ccms.contactme.model.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +13,6 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.util.Properties;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 @Service
 public class EmailService {
@@ -23,7 +21,7 @@ public class EmailService {
     @Autowired
     private EmailProperties emailProperties;
 
-    public void sendEmailNotification(String fname, Set<Contact> contacts) throws Exception {
+    public void sendEmailNotification(User user, String productNames) throws Exception {
         Properties props = System.getProperties();
         props.put("mail.transport.protocol", "smtp");
         props.put("mail.smtp.port", Integer.parseInt(emailProperties.getPort()));
@@ -34,15 +32,12 @@ public class EmailService {
 
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("<h1>Contact Lenses Expiration Alert!</h1>");
-        stringBuilder.append("<p>Hi " + fname + "! Your contact lenses in below are expired. " + "</p>");
-        stringBuilder.append("<p>" + contacts.stream().map(v -> v.getName()).collect(Collectors.toSet()).toString() + "</p>");
+        stringBuilder.append("<p>Hi " + user.getFirstName() + "! Your contact lenses in below are expired. " + "</p>");
+        stringBuilder.append("<p>" + productNames + "</p>");
 
         String content = stringBuilder.toString();
 
-        String toEmail = contacts.stream()
-                .map(v -> v.getUser().getEmail())
-                .findFirst()
-                .get();
+        String toEmail = user.getEmail();
 
         MimeMessage msg = new MimeMessage(session);
         msg.setFrom(new InternetAddress(emailProperties.getFrom(), emailProperties.getFromName()));

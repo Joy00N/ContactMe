@@ -16,11 +16,13 @@ import java.time.LocalDate;
 public class Contact {
 
     @Id
-    private String id;
-    private User user;
-    private String name;
+    @Generated
+    private Long id;
+    private Long userId;
+    private String productName;
     private LocalDate openingDate;
     private LocalDate expirationDate;
     private String contactType;
+    private boolean isNotificationOn;
 
 }
