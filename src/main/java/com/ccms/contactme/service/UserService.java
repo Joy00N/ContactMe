@@ -10,7 +10,5 @@ public interface UserService {
 
     Optional<User> findById(Long id);
 
-    User findByFirstName(String name);
-
     User save(User user);
 }

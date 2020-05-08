@@ -20,20 +20,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Optional<User> findById(String id) {
+    public Optional<User> findById(Long id) {
         return Optional.of(userRepository.findById(id)).get();
-    }
-
-    @Override
-    public User findByFirstName(String name) {
-        return userRepository
-                .findAll()
-                .stream()
-                .filter(v ->
-                        v.getFirstname().equals(name)
-                )
-                .findAny()
-                .orElse(null);
     }
 
     @Override
