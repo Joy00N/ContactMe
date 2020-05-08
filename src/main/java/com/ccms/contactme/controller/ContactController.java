@@ -38,7 +38,7 @@ public class ContactController {
     }
 
     @RequestMapping(value = "contact/{id}", method = RequestMethod.GET)
-    public Optional<Contact> getContactById(@PathVariable("id") Long id) {
+    public Optional<Contact> getContactById(@PathVariable("id") String id) {
         return contactService.findById(id);
     }
 
@@ -59,22 +59,22 @@ public class ContactController {
         List<Contact> expiredContacts = contactService.findExpiredContacts();
 
         //map for user - list of expired contacts
-        Map<Long, List<Contact>> expiredContactUserMap = expiredContacts.stream()
+        Map<String, List<Contact>> expiredContactUserMap = expiredContacts.stream()
                 .collect(Collectors.groupingBy(Contact::getUserId));
 
-        Map<Long, String> expiredContactProductNamesMap = new HashMap<>();
+        Map<String, String> expiredContactProductNamesMap = new HashMap<>();
 
-        for (Long l : expiredContactUserMap.keySet()) {
+        for (String s : expiredContactUserMap.keySet()) {
 
-            String expiredProductsName = expiredContactUserMap.get(l).stream()
+            String expiredProductsName = expiredContactUserMap.get(s).stream()
                     .map(v -> v.getProductName())
                     .collect(Collectors.joining());
 
-            expiredContactProductNamesMap.put(l, expiredProductsName);
+            expiredContactProductNamesMap.put(s, expiredProductsName);
         }
 
 
-        for (Long s : expiredContactProductNamesMap.keySet()) {
+        for (String s : expiredContactProductNamesMap.keySet()) {
             User user = userService.findById(s).get();
             try {
                 emailService.sendEmailNotification(user, expiredContactProductNamesMap.get(s));

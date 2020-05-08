@@ -9,7 +9,7 @@ import java.util.Date;
 import java.util.List;
 
 @Repository
-public interface ContactRepository extends MongoRepository<Contact, Long> {
+public interface ContactRepository extends MongoRepository<Contact, String> {
 
     @Query(value = "{'expirationDate' : {$lt : ?0}}")
     List<Contact> findExpiredContacts(Date date);

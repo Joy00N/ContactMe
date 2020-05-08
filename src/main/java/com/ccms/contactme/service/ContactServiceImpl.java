@@ -23,7 +23,7 @@ public class ContactServiceImpl implements ContactService {
     }
 
     @Override
-    public Optional<Contact> findById(Long id) {
+    public Optional<Contact> findById(String id) {
         return contactRepository.findById(id);
     }
 

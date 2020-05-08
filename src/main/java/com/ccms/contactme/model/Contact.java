@@ -17,8 +17,8 @@ public class Contact {
 
     @Id
     @Generated
-    private Long id;
-    private Long userId;
+    private String id;
+    private String userId;
     private String productName;
     private LocalDate openingDate;
     private LocalDate expirationDate;
