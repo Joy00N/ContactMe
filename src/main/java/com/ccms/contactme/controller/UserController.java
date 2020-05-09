@@ -9,19 +9,19 @@ import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/users")
 public class UserController {
     public String name;
 
     @Autowired
     private UserService service;
 
-    @RequestMapping(value = "/users", method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET)
     private List<User> getAllUsers(){
         return service.findAll();
     }
 
-    @RequestMapping(value = "/users", method = RequestMethod.POST)
+    @RequestMapping(method = RequestMethod.POST)
     private User addNewUser(@RequestBody User user){
         return service.save(user);
     }

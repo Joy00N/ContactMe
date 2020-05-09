@@ -37,7 +37,7 @@ public class ContactController {
         return contactService.findAll();
     }
 
-    @RequestMapping(value = "contact/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/contacts/{id}", method = RequestMethod.GET)
     public Optional<Contact> getContactById(@PathVariable("id") String id) {
         return contactService.findById(id);
     }
