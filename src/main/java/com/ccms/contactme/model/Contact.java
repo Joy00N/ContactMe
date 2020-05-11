@@ -23,6 +23,7 @@ public class Contact {
     private LocalDate openingDate;
     private LocalDate expirationDate;
     private String contactType;
+    private boolean isExpired;
     private boolean isNotificationOn;
 
 }

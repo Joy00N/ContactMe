@@ -2,7 +2,7 @@ package com.ccms.contactme.util;
 
 public enum ContactType {
     DAILY("daily", 0),
-    BIWEEKLY("biWeekly", 1),
+    BIWEEKLY("biweekly", 1),
     MONTHLY("monthly", 2);
 
     private final String value;
