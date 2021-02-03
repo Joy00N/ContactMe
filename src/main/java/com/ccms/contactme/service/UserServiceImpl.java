@@ -28,4 +28,10 @@ public class UserServiceImpl implements UserService {
     public User save(User user) {
         return userRepository.insert(user);
     }
+
+    @Override
+    public Boolean authenticateUser(String username, String password) {
+        User user = userRepository.findUserByUsername(username);
+        return password.equals(user.getPassword());
+    }
 }

@@ -11,4 +11,6 @@ public interface UserService {
     Optional<User> findById(String id);
 
     User save(User user);
+
+    Boolean authenticateUser(String username, String password);
 }

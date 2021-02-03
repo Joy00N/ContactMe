@@ -21,9 +21,14 @@ public class UserController {
         return service.findAll();
     }
 
-    @RequestMapping(method = RequestMethod.POST)
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
     private User addNewUser(@RequestBody User user){
         return service.save(user);
+    }
+
+    @RequestMapping(value = "/authenticate", method = RequestMethod.POST)
+    private Boolean authenticateuser(@RequestBody User user) {
+        return service.authenticateUser(user.getUsername(), user.getPassword());
     }
 
 }
